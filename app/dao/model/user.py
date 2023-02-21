@@ -1,16 +1,20 @@
 from app.database import db
 from marshmallow import Schema, fields
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy import ForeignKey
 
+Base = declarative_base()
 
-class User(db.Model):
+class User(Base):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String)
-    password = db.Column(db.String)
-    name = db.Column(db.String)
-    surname = db.Column(db.String)
-    favorite_genre = db.Column(db.String, db.ForeignKey("genre.name"))
-    genre = db.relationship("Genre")
+    id = Column(Integer, primary_key=True)
+    email = Column(String())
+    password = Column(String())
+    name = Column(String())
+    surname = Column(String())
+    favorite_genre = Column(String(), ForeignKey("genre.name"))
+    genre = relationship("Genre")
 
 
 class UserSchema(Schema):

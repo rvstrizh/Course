@@ -1,19 +1,24 @@
 from app.database import db
 from marshmallow import Schema, fields
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+Base = declarative_base()
 
 
-class Movie(db.Model):
+class Movie(Base):
     __tablename__ = 'movie'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(245))
-    description = db.Column(db.String(250))
-    trailer = db.Column(db.String(250))
-    year = db.Column(db.Integer)
-    rating = db.Column(db.Integer)
-    genre_id = db.Column(db.Integer, db.ForeignKey("genre.id"))
-    genre = db.relationship("Genre")
-    director_id = db.Column(db.Integer, db.ForeignKey("director.id"))
-    director = db.relationship("Director")
+    id = Column(Integer, primary_key=True)
+    title = Column(String(245))
+    description = Column(String(250))
+    trailer = Column(String(250))
+    year = Column(Integer())
+    rating = Column(Integer())
+    genre_id = Column(Integer)
+    # genre = relationship("Genre")
+    director_id = Column(Integer)
+    # director = relationship("Director")
 
     def __repr__(self):
         return self.title
